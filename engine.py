@@ -25,11 +25,11 @@ userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Gra
 with open ('dataset.pickle', 'rb') as ptr:
   df_final = pickle.load(ptr)
 
-with open ('recommendation.pickle', 'rb') as ptr:
-  tfidf_jobid = pickle.load(ptr)
+with open ('recommendation.pickle', 'rb') as ptr1:
+  tfidf_jobid = pickle.load(ptr1)
 
-with open ('vector.pickle', 'rb') as ptr:
-  vector = pickle.load(ptr)
+with open ('vector.pickle', 'rb') as ptr2:
+  vector = pickle.load(ptr2)
 
 def get_recommendation(userData, df_final):
   from sklearn.metrics.pairwise import cosine_similarity
