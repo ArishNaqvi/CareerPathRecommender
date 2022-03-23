@@ -33,11 +33,14 @@ with open ('vector.pickle', 'rb') as ptr:
 
 def get_recommendation(userData, df_final):
   from sklearn.metrics.pairwise import cosine_similarity
+  st.write(userData)
   user_tfidf = vector.transform((userData['text']))
+  st.write(user_tfidf)
   cos_similarity_tfidf = map(lambda x: cosine_similarity(user_tfidf, x),tfidf_jobid)
   output2 = list(cos_similarity_tfidf)
+  st.write(output2)
   top = sorted(range(len(output2)), key=lambda i: output2[i], reverse=True)[:10]
-  print(top)
+  st.write(top)
   recommendation = pd.DataFrame(columns = ['Job_Type'])
   rowNum = 0
   for i in top:
@@ -46,8 +49,9 @@ def get_recommendation(userData, df_final):
       rowNum += 1
   return recommendation
 
+
 if st.button('Get career recommendation'):
   recommendations = get_recommendation(userData, df_final)
-  print(recommendations)
+  st.write(recommendations)
   for i in recommendations:
     st.write(i)
