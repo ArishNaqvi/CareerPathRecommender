@@ -46,8 +46,7 @@ def get_recommendation(userData, df_final):
       rowNum += 1
   return recommendation
 
-recommendations = get_recommendation(userData, df_final)
-recommendations
-
-for i in recommendations:
-  st.write(i)
+if st.button('Get career recommendation'):
+  recommendations = get_recommendation(userData, df_final)
+  for i in recommendations:
+    st.write(i)
