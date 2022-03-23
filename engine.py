@@ -13,11 +13,11 @@ import pickle
 
 userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Skills','Interests','Applicant_Id','text'])
 
-st.title('Career recommendation system (this one actually works!')
+st.title('Career recommendation system (this one actually works!)')
 userData.at[0,'Graduation'] = st.text_input('Enter your graduation degree')
 userData.at[0,'Graduation_Stream'] = st.text_input('Enter your graduation stream')
 userData.at[0,'Percentage'] = st.text_input('Enter the graduation percentage')
-userData.at[0,'Skills'] = st.text_input('"What are your skills?')
+userData.at[0,'Skills'] = st.text_input('What are your skills?')
 userData.at[0,'Interests'] = st.text_input('What are your interest?')
 
 userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Graduation_Stream"] +" "+ userData.iloc[0]["Skills"]+" "+userData.iloc[0]["Interests"]
@@ -28,13 +28,13 @@ with open ('dataset.pickle', 'rb') as ptr:
 with open ('recommendation.pickle', 'rb') as ptr:
   tfidf_jobid = pickle.load(ptr)
 
+with open ('vector.pickle', 'rb') as ptr:
+  vector = pickle.load(ptr)
+
 def get_recommendation(userData, df_final):
+  st.write(userData)
   from sklearn.metrics.pairwise import cosine_similarity
-  from sklearn.feature_extraction.text import TfidfVectorizer
-  tfidf_vectorizer = TfidfVectorizer()
-  print(userData)
-  user_tfidf = tfidf_vectorizer.fit_transform((userData['text']))
-  print(user_tfidf)
+  user_tfidf = vector.transform((userData['text']))
   cos_similarity_tfidf = map(lambda x: cosine_similarity(user_tfidf, x),tfidf_jobid)
   output2 = list(cos_similarity_tfidf)
   top = sorted(range(len(output2)), key=lambda i: output2[i], reverse=True)[:10]
