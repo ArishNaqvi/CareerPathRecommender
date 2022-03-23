@@ -48,4 +48,4 @@ def get_recommendation(userData, df_final):
 
 if st.button('Get career recommendation'):
   recommendations = get_recommendation(userData, df_final)
-  st.write(recommendations)
+  st.dataframe(recommendations.style.hide_index())
