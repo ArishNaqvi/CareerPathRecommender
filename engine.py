@@ -13,7 +13,7 @@ import pickle
 
 userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Skills','Interests','Applicant_Id','text'])
 
-st.title('Career recommendation system (this one actually works!)')
+st.title('Career recommendation system')
 userData.at[0,'Graduation'] = st.text_input('Enter your graduation degree')
 userData.at[0,'Graduation_Stream'] = st.text_input('Enter your graduation stream')
 userData.at[0,'Percentage'] = st.text_input('Enter the graduation percentage')
