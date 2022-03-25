@@ -10,17 +10,33 @@ Original file is located at
 import streamlit as st
 import pandas as pd
 import pickle
+from PIL import Image
 
 userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Skills','Interests','Applicant_Id','text'])
 
-st.title('Career recommendation system')
-userData.at[0,'Graduation'] = st.text_input('Enter your graduation degree')
-userData.at[0,'Graduation_Stream'] = st.text_input('Enter your graduation stream')
-userData.at[0,'Percentage'] = st.text_input('Enter the graduation percentage')
-userData.at[0,'Skills'] = st.text_input('What are your skills?')
-userData.at[0,'Interests'] = st.text_input('What are your interest?')
+st.title('Career Recommendation System')
+image = Image.open('background1.jpg')
+st.image(image)
 
-userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Graduation_Stream"] +" "+ userData.iloc[0]["Skills"]+" "+userData.iloc[0]["Interests"]
+with open('grad.txt', 'r') as file:
+    grad = file.read().split(',')
+with open('gradstream.txt', 'r') as file:
+    stream = file.read().split(',')
+with open('skills.txt', 'r') as file:
+    skill = file.read().split(',')
+with open('interest.txt', 'r') as file:
+    interest = file.read().split(',')
+
+userData.at[0,'Graduation']  = st.selectbox('Select your graduation degree', grad)
+
+userData.at[0,'Graduation_Stream'] = st.selectbox('Select your graduation stream', stream)
+
+userData.at[0,'Percentage'] = st.text_input('Enter the graduation percentage')
+
+userData.at[0,'Skills'] = st.multiselect("Select your skills", skill)
+
+userData.at[0,'Interests'] =  st.multiselect("Select your skills", interest)
+
 
 with open ('dataset.pickle', 'rb') as ptr:
   df_final = pickle.load(ptr)
@@ -32,6 +48,7 @@ with open ('vector.pickle', 'rb') as ptr2:
   vector = pickle.load(ptr2)
 
 def get_recommendation(userData, df_final):
+  userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Graduation_Stream"] +" "+ " ".join(userData.iloc[0]["Skills"])+" "+" ".join(userData.iloc[0]["Interests"])
   from sklearn.metrics.pairwise import cosine_similarity
   user_tfidf = vector.transform((userData['text']))
   cos_similarity_tfidf = map(lambda x: cosine_similarity(user_tfidf, x),tfidf_jobid)
