@@ -14,7 +14,7 @@ import requests
 from streamlit_lottie import st_lottie 
 
 #creating a user data frame 
-userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Skills','Interests','Applicant_Id','text'])
+userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Technical/BusinessSkills','Interests','Applicant_Id','text'])
 
 #saving dropdown texts in separate variables for grad,gradstream,skills & interests
 with open('grad.txt', 'r') as file:
@@ -73,7 +73,7 @@ with open ('vector.pickle', 'rb') as ptr2:
 
 #defining a method to create cosine similarity between tfidf_jobid and userdata
 def get_recommendation(userData, df_final):
-  userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Graduation_Stream"] +" "+ " ".join(userData.iloc[0]["Skills"])+" "+" ".join(userData.iloc[0]["Interests"])
+  userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Graduation_Stream"] +" "+ " ".join(userData.iloc[0]["Technical/BusinessSkills"])+" "+" ".join(userData.iloc[0]["Interests"])
   from sklearn.metrics.pairwise import cosine_similarity
   user_tfidf = vector.transform((userData['text']))
   cos_similarity_tfidf = map(lambda x: cosine_similarity(user_tfidf, x),tfidf_jobid)
@@ -82,7 +82,7 @@ def get_recommendation(userData, df_final):
   recommendation = pd.DataFrame(columns = ['Job_Type'])
   rowNum = 0
   for i in top:
-      recommendation.at[rowNum, 'Job_Type'] = df_final['Job_Type'][i]
+      recommendation.at[rowNum, 'Job_Type'] = df_final['Job_Roles'][i]
       rowNum += 1
   return recommendation
 
@@ -97,7 +97,7 @@ with st.container():
 
        userData.at[0,'Percentage'] = st.text_input('Enter your graduation percentage')
 
-       userData.at[0,'Skills'] = st.multiselect("Select your skills", skill)
+       userData.at[0,'Technical/BusinessSkills'] = st.multiselect("Select your skills", skill)
 
        userData.at[0,'Interests'] =  st.multiselect("Select your interests", interest)
      st.write("##")
