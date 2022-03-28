@@ -10,7 +10,6 @@ import time
 import streamlit as st
 import pandas as pd
 import pickle
-from PIL import Image
 import requests 
 from streamlit_lottie import st_lottie 
 
@@ -108,4 +107,4 @@ with st.container():
              st.write("Here are your top ten job recommendations")
              recommendations = get_recommendation(userData, df_final)
              for i in recommendations['Job_Type']:
-               st.markdown('- '+i)
+               st.markdown('- **'+i.strip()+'**')

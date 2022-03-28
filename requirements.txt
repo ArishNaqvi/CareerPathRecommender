@@ -3,3 +3,4 @@ streamlit
 scipy
 scikit-learn
 streamlit-lottie
+requests
