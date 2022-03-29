@@ -41,17 +41,17 @@ with open(r'data\job\interest.txt', 'w') as interesttxt:
 lst = [x for xs in df1['Graduation'] for x in xs.split(';')]
 finalList = sorted(set([x.title().strip() for xs in lst for x in xs.split(',')])) 
 
-with open(r'data\job\grad.txt', 'w') as interesttxt:
-  interesttxt.write(','.join(finalList))
+with open(r'data\job\grad.txt', 'w') as gradtxt:
+  gradtxt.write(','.join(finalList))
 
 lst = [x for xs in df1['Graduation_Stream'] for x in xs.split(';')]
 finalList = sorted(set([x.title().strip() for xs in lst for x in xs.split(',')])) 
 
-with open(r'data\job\gradstream.txt', 'w') as interesttxt:
-  interesttxt.write(','.join(finalList))
+with open(r'data\job\gradstream.txt', 'w') as gradstream:
+  gradstream.write(','.join(finalList))
 
 lst = [x for xs in df1['Technical/Business_Skills'] for x in xs.split(';')]
 finalList = sorted(set([x.title().strip() for xs in lst for x in xs.split(',')])) 
 
-with open(r'data\job\skills.txt', 'w') as interesttxt:
-  interesttxt.write(','.join(finalList))
+with open(r'data\job\skills.txt', 'w') as skills:
+  skills.write(','.join(finalList))
