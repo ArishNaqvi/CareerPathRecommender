@@ -17,7 +17,7 @@ from streamlit_lottie import st_lottie
 userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Technical/BusinessSkills','Interests','Applicant_Id','text'])
 
 #saving dropdown texts in separate variables for grad,gradstream,skills & interests(Job Recommendation)
-with open(r'data\job\grad.txt', 'r') as file:
+with open('./data/job/grad.txt', 'r') as file:
     grad = file.read().split(',')
 with open(r'data\job\gradstream.txt', 'r') as file:
     stream = file.read().split(',')
