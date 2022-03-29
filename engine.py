@@ -14,7 +14,7 @@ import requests
 from streamlit_lottie import st_lottie 
 
 #creating a user data frame 
-userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Technical/BusinessSkills','Interests','Applicant_Id','text'])
+userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','Technical/BusinessSkills','Interests','Administrartive_Skills','text'])
 
 #saving dropdown texts in separate variables for grad,gradstream,skills & interests(Job Recommendation)
 with open('./data/job/grad.txt', 'r') as file:
@@ -25,6 +25,8 @@ with open('./data/job/skills.txt', 'r') as file:
     skill = file.read().split(',')
 with open('./data/job/interest.txt', 'r') as file:
     interest = file.read().split(',')
+with open('./data/job/adminskills.txt', 'r') as file:
+    adminskill = file.read().split(',')
 
 #saving dropdown texts in separate variables for grad,gradstream,skills & interests(Masters Recommendation)
 with open('./data/masters/grad_masters.txt', 'r') as file:
@@ -83,7 +85,7 @@ if choice == 'Job':
 
   #defining a method to create cosine similarity between tfidf_jobid and userdata
   def get_job_recommendation(userData, df_final):
-    userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Graduation_Stream"] +" "+userData.iloc[0]["Percentage"] +" "+ " ".join(userData.iloc[0]["Technical/BusinessSkills"])+" "+" ".join(userData.iloc[0]["Interests"])
+    userData.at[0, 'text']=userData.iloc[0]["Graduation"]+" "+ userData.iloc[0]["Graduation_Stream"] +" "+userData.iloc[0]["Percentage"] +" "+ " ".join(userData.iloc[0]["Technical/BusinessSkills"])+ " ".join(userData.iloc[0]["Administrartive_Skills"])+" "+" ".join(userData.iloc[0]["Interests"])
     from sklearn.metrics.pairwise import cosine_similarity
     user_tfidf = vector.transform((userData['text']))
     cos_similarity_tfidf = map(lambda x: cosine_similarity(user_tfidf, x),tfidf_jobid)
@@ -107,7 +109,9 @@ if choice == 'Job':
 
         userData.at[0,'Percentage'] = st.text_input('Enter your graduation percentage')
 
-        userData.at[0,'Technical/BusinessSkills'] = st.multiselect("Select your skills", skill)
+        userData.at[0,'Technical/BusinessSkills'] = st.multiselect("Select your Technical/Business skills", skill)
+
+        userData.at[0,'Administrartive_Skills'] = st.multiselect("Select your administrative skills", adminskill)
 
         userData.at[0,'Interests'] =  st.multiselect("Select your interests", interest)
       st.write("##")

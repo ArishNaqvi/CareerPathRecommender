@@ -9,9 +9,9 @@ df.style.format({'Percentage': "{:.1f}"})
 df.head()
 
 df.isnull().sum()
-cols = ['Job_Roles']+['Graduation']+ ['Graduation_Stream']+['Technical/Business_Skills']+['Percentage']+['Applicant_Id']+['Interests']
+cols = ['Job_Roles']+['Graduation']+ ['Graduation_Stream']+['Technical/Business_Skills']+['Percentage']+['Applicant_Id']+['Interests']+['Administrative_Skills']
 df1 =df[cols]
-df1["text"] = df1["Graduation"].map(str)+" "+ df1["Graduation_Stream"] +" "+ df1["Technical/Business_Skills"]+" "+df1["Interests"]
+df1["text"] = df1["Graduation"].map(str)+" "+ df1["Graduation_Stream"] +" "+ df1["Technical/Business_Skills"]+" "+df1["Interests"]+" "+df1["Administrative_Skills"]
 #initializing tfidf vectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfidf_vectorizer = TfidfVectorizer()
@@ -54,4 +54,10 @@ lst = [x for xs in df1['Technical/Business_Skills'] for x in xs.split(';')]
 finalList = sorted(set([x.title().strip() for xs in lst for x in xs.split(',')])) 
 
 with open(r'data\job\skills.txt', 'w') as skills:
+  skills.write(','.join(finalList))
+
+lst = [x for xs in df1['Administrative_Skills'] for x in xs.split(';')]
+finalList = sorted(set([x.title().strip() for xs in lst for x in xs.split(',')])) 
+
+with open(r'data\job\adminskills.txt', 'w') as skills:
   skills.write(','.join(finalList))
