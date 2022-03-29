@@ -19,19 +19,19 @@ userData=pd.DataFrame(columns = ['Graduation','Graduation_Stream','Percentage','
 #saving dropdown texts in separate variables for grad,gradstream,skills & interests(Job Recommendation)
 with open('./data/job/grad.txt', 'r') as file:
     grad = file.read().split(',')
-with open(r'data\job\gradstream.txt', 'r') as file:
+with open('./data/job/gradstream.txt', 'r') as file:
     stream = file.read().split(',')
-with open(r'data\job\skills.txt', 'r') as file:
+with open('./data/job/skills.txt', 'r') as file:
     skill = file.read().split(',')
-with open(r'data\job\interest.txt', 'r') as file:
+with open('./data/job/interest.txt', 'r') as file:
     interest = file.read().split(',')
 
 #saving dropdown texts in separate variables for grad,gradstream,skills & interests(Masters Recommendation)
-with open(r'data\masters\grad_masters.txt', 'r') as file:
+with open('./data/masters/grad_masters.txt', 'r') as file:
     grad_master = file.read().split(',')
-with open(r'data\masters\gradstreammaster.txt', 'r') as file:
+with open('./data/masters/gradstreammaster.txt', 'r') as file:
     gradstreammaster = file.read().split(',')
-with open(r'data\masters\interest_master.txt', 'r') as file:
+with open('./data/masters/interest_master.txt', 'r') as file:
     interest_master = file.read().split(',')
 
 #page title
@@ -71,13 +71,13 @@ st.write("---")
 choice = st.radio('Choose your path', ['Job', 'Masters'])
 if choice == 'Job':
   #loading the pickled files for dataset,method and tfidfvector
-  with open (r'pickle\job\dataset.pickle', 'rb') as ptr:
+  with open ('./pickle/job/dataset.pickle', 'rb') as ptr:
     df_final = pickle.load(ptr)
 
-  with open (r'pickle\job\recommendation.pickle', 'rb') as ptr1:
+  with open ('./pickle/job/recommendation.pickle', 'rb') as ptr1:
     tfidf_jobid = pickle.load(ptr1)
 
-  with open (r'pickle\job\vector.pickle', 'rb') as ptr2:
+  with open ('./pickle/job/vector.pickle', 'rb') as ptr2:
     vector = pickle.load(ptr2)
 
 
@@ -120,13 +120,13 @@ if choice == 'Job':
                 st.markdown('- **'+i.strip()+'**')
 else:
   #loading the pickled files for dataset,method and tfidfvector
-  with open (r'pickle\masters\dataset-masters.pickle', 'rb') as ptr:
+  with open ('./pickle/masters/dataset-masters.pickle', 'rb') as ptr:
     df_final_master = pickle.load(ptr)
 
-  with open (r'pickle\masters\recommendation-master.pickle', 'rb') as ptr1:
+  with open ('./pickle/masters/recommendation-master.pickle', 'rb') as ptr1:
     tfidf_jobid_master = pickle.load(ptr1)
 
-  with open (r'pickle\masters\vector-masters.pickle', 'rb') as ptr2:
+  with open ('./pickle/masters/vector-masters.pickle', 'rb') as ptr2:
     vector_master = pickle.load(ptr2)
 
 
