@@ -163,7 +163,7 @@ else:
       if st.button('Get masters recommendation'):
         with right_column:
             with st.spinner('Wait for it...'):
-              st.write("Here are your top ten job recommendations")
+              st.write("Here are your top ten masters recommendations")
               recommendations = get_masters_recommendation(userData, df_final_master)
               for i in recommendations['masters_type']:
                 st.markdown('- **'+i.strip()+'**')
